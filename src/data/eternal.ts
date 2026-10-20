@@ -1,0 +1,62 @@
+export const eternalProducts = [
+  {
+    slug: 'raiz',
+    name: 'Raíz',
+    price: '$ 86.000',
+    category: 'Premium',
+    blurb: 'Urna de fibra y semilla nativa. Pensada para jardín o bosque, con un árbol que continúa el nombre.',
+    material: 'Fibra vegetal y arcilla',
+    seed: 'Cebil o jacarandá, según región',
+  },
+  {
+    slug: 'bruma',
+    name: 'Bruma',
+    price: '$ 64.000',
+    category: 'Esencial',
+    blurb: 'Forma suave, tono piedra. Para una ceremonia serena, sin ornamento de más.',
+    material: 'Papel de algodón y tierra',
+    seed: 'Lavanda y romero',
+  },
+  {
+    slug: 'linterna',
+    name: 'Linterna',
+    price: '$ 72.000',
+    category: 'Íntima',
+    blurb: 'Pequeña, para pocos. Se entrega con carta y un gesto de luz al anochecer.',
+    material: 'Madera de reuso y cera',
+    seed: 'Jazmín',
+  },
+  {
+    slug: 'cauce',
+    name: 'Cauce',
+    price: '$ 91.000',
+    category: 'Premium',
+    blurb: 'Para despedidas junto al agua. Se disuelve con respeto y deja un recuerdo vegetal.',
+    material: 'Sal compactada y algas',
+    seed: 'Ceibo',
+  },
+  {
+    slug: 'humus',
+    name: 'Humus',
+    price: '$ 48.000',
+    category: 'Básica',
+    blurb: 'La opción más simple y honesta. Tierra que vuelve a ser tierra.',
+    material: 'Celulosa y compost',
+    seed: 'Mix de nativas',
+  },
+  {
+    slug: 'combo',
+    name: 'Combo sereno',
+    price: '$ 118.000',
+    category: 'Combo',
+    blurb: 'Urna Bruma, semilla, carta impresa y coordinación de siembra en predio aliado.',
+    material: 'Según urna',
+    seed: 'A elección',
+  },
+]
+
+export const eternalImpact = [
+  { label: 'Árboles plantados', value: '1.240' },
+  { label: 'Urnas donadas', value: '86' },
+  { label: 'Predios aliados', value: '12' },
+]

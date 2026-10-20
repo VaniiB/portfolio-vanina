@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-series: "Bebas Neue", Impact, sans-serif;
+  --font-sans: "Inter", "Outfit", system-ui, sans-serif;
+  --color-void: #07070a;
+  --color-ink: #f4f1ec;
+  --color-mute: #a7a6ad;
+  --color-line: #1d1c1a;
+  --color-gold: #c9a66b;
+  --color-gold-dim: #8a7044;
+  --color-paper: #111110;
+  --color-crimson: #e5132b;
+  --color-crimson-2: #ff3d5a;
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #ff3d5a;
+  color: #fff;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.display {
+  font-family: var(--font-display);
+}
+
+.font-series {
+  font-family: var(--font-series);
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+.speech-bubble {
+  background: #f4f1ec;
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.saludar-pulse {
+  animation: saludar-pulse 1.4s ease-out infinite;
+}
+
+@keyframes saludar-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 61, 90, 0.75); }
+  70% { box-shadow: 0 0 0 12px rgba(255, 61, 90, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 61, 90, 0); }
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #f4f1ec;
+  transform: rotate(45deg);
+  bottom: -5px;
+}
+
+.speech-bubble[data-from="left"]::after {
+  left: 22px;
+}
+
+.speech-bubble[data-from="right"]::after {
+  right: 22px;
+}
+
+.speech-bubble[data-from="side"]::after {
+  left: -5px;
+  top: 50%;
+  bottom: auto;
+  margin-top: -6px;
+}
+
+.speech-bubble[data-from="side-right"]::after {
+  right: -5px;
+  top: 32px;
+  bottom: auto;
+}
+
+.speech-bubble[data-from="center"]::after {
+  left: 50%;
+  margin-left: -6px;
+}
+
+.light-streak {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 90, 110, 0.9), transparent);
+  animation: streak 7s var(--ease-cine) infinite;
+  opacity: 0;
+}
+
+@keyframes streak {
+  0% {
+    transform: translateX(-40%) scaleX(0.4);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  45% {
+    transform: translateX(40%) scaleX(1);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .light-streak {
+    animation: none !important;
+    display: none;
+  }
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, #ff3d5a55, transparent);
+  height: 1px;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
