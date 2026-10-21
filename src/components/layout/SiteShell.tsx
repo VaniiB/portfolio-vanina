@@ -13,7 +13,7 @@ export function SiteShell() {
   }, [pathname, hash])
 
   return (
-    <div className="relative min-h-screen text-ink">
+    <div className="relative min-h-screen overflow-x-clip text-ink">
       <MatrixRain />
       <div className="grain" />
       <SiteNav />
