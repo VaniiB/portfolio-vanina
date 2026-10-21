@@ -44,6 +44,16 @@ const chips: { id: QuestionId; text: string; pos: string }[] = [
   { id: 'contact', text: '¿Cómo te contacto?', pos: 'left-[4%] bottom-[10%]' },
 ]
 
+const mobileChipPos: Record<QuestionId, string> = {
+  music: 'left-[3%] top-[0%]',
+  about: 'right-[3%] top-[0%]',
+  career: 'left-[2%] top-[22%] max-w-[33%]',
+  projects: 'right-[2%] top-[28%] max-w-[29%]',
+  ai: 'left-[3%] top-[46%]',
+  mate: 'right-[2%] top-[52%] max-w-[29%]',
+  contact: 'left-[2%] top-[64%] max-w-[33%]',
+}
+
 function axisFrom(n: number, face: number) {
   const x = Math.min(1, Math.max(0, n))
   if (x < face) return 0.5 * (x / face)
@@ -249,7 +259,6 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
       closeAnswer()
       return
     }
-    if (!fine) window.scrollTo({ top: 0, behavior: 'smooth' })
     endSip()
     if (greetLock.current) stopGreet()
     window.clearTimeout(answerTimer.current)
@@ -663,24 +672,25 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
             Ver proyecto
           </a>
         </motion.div>
-        <motion.div variants={item} className="mt-8 md:hidden">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ff3d5a]">Preguntale a Vani</p>
-          <div className="-mx-6 mt-3 flex flex-wrap gap-2 px-6 sm:-mx-12 sm:px-12">
-            {chips.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  ask(c.id)
-                }}
-                className={`glass rounded-xl px-3.5 py-2 text-[13px] font-semibold text-[#f4f1ec] transition-colors ${answer?.id === c.id ? 'border-[#ff3d5a]/80 bg-[#ff3d5a]/20' : ''}`}
-              >
-                {c.text}
-              </button>
-            ))}
-          </div>
-        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="pointer-events-none absolute inset-x-0 top-[9svh] z-[5] h-[46svh] md:hidden"
+        style={{ opacity: fade }}
+        animate={{ y: [0, -8, -2, -10, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        {chips.map((c, i) => (
+          <FloatChip
+            key={c.id}
+            text={c.text}
+            pos={mobileChipPos[c.id]}
+            compact
+            index={i}
+            active={answer?.id === c.id}
+            onAsk={() => ask(c.id)}
+          />
+        ))}
       </motion.div>
 
       <AnimatePresence>
@@ -757,12 +767,14 @@ function FloatChip({
   index,
   active,
   onAsk,
+  compact = false,
 }: {
   text: string
   pos: string
   index: number
   active: boolean
   onAsk: () => void
+  compact?: boolean
 }) {
   return (
     <motion.button
@@ -771,7 +783,7 @@ function FloatChip({
         e.stopPropagation()
         onAsk()
       }}
-      className={`glass pointer-events-auto absolute flex items-center justify-center rounded-xl px-4 py-2.5 text-center text-sm font-semibold leading-tight text-[#f4f1ec] transition-colors hover:border-[#ff3d5a]/70 hover:bg-[#ff3d5a]/15 ${active ? 'border-[#ff3d5a]/80 bg-[#ff3d5a]/20' : ''} ${pos}`}
+      className={`glass pointer-events-auto absolute flex items-center justify-center rounded-xl text-center font-semibold ${compact ? 'px-2.5 py-1.5 text-[11px]' : 'px-4 py-2.5 text-sm'} leading-tight text-[#f4f1ec] transition-colors hover:border-[#ff3d5a]/70 hover:bg-[#ff3d5a]/15 ${active ? 'border-[#ff3d5a]/80 bg-[#ff3d5a]/20' : ''} ${pos}`}
       initial={{ opacity: 0, filter: 'blur(6px)' }}
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       transition={{ duration: 0.9, delay: 1.2 + index * 0.18, ease: EASE }}
