@@ -249,6 +249,7 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
       closeAnswer()
       return
     }
+    if (!fine) window.scrollTo({ top: 0, behavior: 'smooth' })
     endSip()
     if (greetLock.current) stopGreet()
     window.clearTimeout(answerTimer.current)
@@ -329,6 +330,108 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
     setGreetStep(0)
     targetLook.current = look
   }
+
+  const answerBody = answer ? (
+    <>
+    <button
+      type="button"
+      aria-label="Cerrar"
+      onClick={closeAnswer}
+      className="absolute right-2.5 top-2 text-base leading-none text-[#07070a]/50 hover:text-[#07070a]"
+    >
+      ×
+    </button>
+    <motion.p key={answer.text} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pr-3">
+      {answer.text}
+    </motion.p>
+    {answer.id === 'music' && !hasSong && (
+      <p className="mt-2 text-xs text-[#07070a]/55">Pronto va a sonar acá.</p>
+    )}
+    {answer.id === 'music' && hasSong && music === 'off' && (
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          setMusic('playing')
+        }}
+        className="saludar-pulse mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
+      >
+        ▶ Reproducir
+      </button>
+    )}
+    {answer.id === 'music' && hasSong && music === 'playing' && (
+      <>
+        <p className="mt-2 text-xs text-[#07070a]/70">{heroQuestions.musicKeep}</p>
+        <div className="mt-3 flex gap-2">
+          {[
+            { label: 'Sí, dale', keep: true },
+            { label: 'No, gracias', keep: false },
+          ].map((o) => (
+            <button
+              key={o.label}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                keepMusic(o.keep)
+              }}
+              className="flex-1 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
+      </>
+    )}
+    {answer.id === 'projects' && (
+      <a
+        href="#grupo-penna"
+        onClick={closeAnswer}
+        aria-label="Ir a mis proyectos"
+        className="saludar-pulse mt-3 flex size-10 items-center justify-center rounded-full bg-[#ff3d5a] text-lg text-white"
+      >
+        ↓
+      </a>
+    )}
+    {answer.id === 'mate' && answer.text === heroQuestions.mate[1] && (
+      <div className="mt-3 flex gap-2">
+        {[
+          { label: 'Sí', liked: true },
+          { label: 'No', liked: false },
+        ].map((o) => (
+          <button
+            key={o.label}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              rateMate(o.liked)
+            }}
+            className="flex-1 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+    )}
+    {answer.id === 'contact' && (
+      <div className="mt-3 flex flex-col gap-2">
+        <a
+          href={`mailto:${profile.email}`}
+          className="rounded-xl bg-[#ff3d5a] px-3 py-2 text-center text-xs font-medium text-white transition hover:brightness-110"
+        >
+          {profile.email}
+        </a>
+        <a
+          href={profile.linkedin}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-xl border border-[#07070a]/15 px-3 py-2 text-center text-xs font-medium transition hover:border-[#ff3d5a] hover:text-[#ff3d5a]"
+        >
+          LinkedIn
+        </a>
+      </div>
+    )}
+    </>
+  ) : null
 
   return (
     <section
@@ -492,110 +595,14 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
                 <motion.div
                   key={answer.id}
                   data-from="side-right"
-                  className="speech-bubble pointer-events-auto absolute z-[7] w-[19rem] px-5 py-4 text-sm leading-relaxed text-[#07070a]"
+                  className="speech-bubble pointer-events-auto absolute z-[7] hidden w-[19rem] px-5 py-4 text-sm leading-relaxed text-[#07070a] md:block"
                   style={{ right: '60%', top: '24%' }}
                   initial={{ opacity: 0, y: 8, scale: 0.92 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 6, scale: 0.95 }}
                   transition={{ duration: 0.3, ease: EASE }}
                 >
-                  <button
-                    type="button"
-                    aria-label="Cerrar"
-                    onClick={closeAnswer}
-                    className="absolute right-2.5 top-2 text-base leading-none text-[#07070a]/50 hover:text-[#07070a]"
-                  >
-                    ×
-                  </button>
-                  <motion.p key={answer.text} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pr-3">
-                    {answer.text}
-                  </motion.p>
-                  {answer.id === 'music' && !hasSong && (
-                    <p className="mt-2 text-xs text-[#07070a]/55">Pronto va a sonar acá.</p>
-                  )}
-                  {answer.id === 'music' && hasSong && music === 'off' && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setMusic('playing')
-                      }}
-                      className="saludar-pulse mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
-                    >
-                      ▶ Reproducir
-                    </button>
-                  )}
-                  {answer.id === 'music' && hasSong && music === 'playing' && (
-                    <>
-                      <p className="mt-2 text-xs text-[#07070a]/70">{heroQuestions.musicKeep}</p>
-                      <div className="mt-3 flex gap-2">
-                        {[
-                          { label: 'Sí, dale', keep: true },
-                          { label: 'No, gracias', keep: false },
-                        ].map((o) => (
-                          <button
-                            key={o.label}
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              keepMusic(o.keep)
-                            }}
-                            className="flex-1 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
-                          >
-                            {o.label}
-                          </button>
-                        ))}
-                      </div>
-                    </>
-                  )}
-                  {answer.id === 'projects' && (
-                    <a
-                      href="#grupo-penna"
-                      onClick={closeAnswer}
-                      aria-label="Ir a mis proyectos"
-                      className="saludar-pulse mt-3 flex size-10 items-center justify-center rounded-full bg-[#ff3d5a] text-lg text-white"
-                    >
-                      ↓
-                    </a>
-                  )}
-                  {answer.id === 'mate' && answer.text === heroQuestions.mate[1] && (
-                    <div className="mt-3 flex gap-2">
-                      {[
-                        { label: 'Sí', liked: true },
-                        { label: 'No', liked: false },
-                      ].map((o) => (
-                        <button
-                          key={o.label}
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            rateMate(o.liked)
-                          }}
-                          className="flex-1 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
-                        >
-                          {o.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                  {answer.id === 'contact' && (
-                    <div className="mt-3 flex flex-col gap-2">
-                      <a
-                        href={`mailto:${profile.email}`}
-                        className="rounded-xl bg-[#ff3d5a] px-3 py-2 text-center text-xs font-medium text-white transition hover:brightness-110"
-                      >
-                        {profile.email}
-                      </a>
-                      <a
-                        href={profile.linkedin}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="rounded-xl border border-[#07070a]/15 px-3 py-2 text-center text-xs font-medium transition hover:border-[#ff3d5a] hover:text-[#ff3d5a]"
-                      >
-                        LinkedIn
-                      </a>
-                    </div>
-                  )}
+                  {answerBody}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -656,7 +663,41 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
             Ver proyecto
           </a>
         </motion.div>
+        <motion.div variants={item} className="mt-8 md:hidden">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ff3d5a]">Preguntale a Vani</p>
+          <div className="-mx-6 mt-3 flex flex-wrap gap-2 px-6 sm:-mx-12 sm:px-12">
+            {chips.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  ask(c.id)
+                }}
+                className={`glass rounded-xl px-3.5 py-2 text-[13px] font-semibold text-[#f4f1ec] transition-colors ${answer?.id === c.id ? 'border-[#ff3d5a]/80 bg-[#ff3d5a]/20' : ''}`}
+              >
+                {c.text}
+              </button>
+            ))}
+          </div>
+        </motion.div>
       </motion.div>
+
+      <AnimatePresence>
+        {answer && (
+          <motion.div
+            key={answer.id}
+            className="speech-bubble fixed inset-x-3 bottom-3 z-[90] max-h-[45svh] overflow-y-auto px-5 py-4 text-[15px] leading-relaxed text-[#07070a] md:hidden"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {answerBody}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-[5] bg-[#07070a]" style={{ opacity: blackout }} />
 

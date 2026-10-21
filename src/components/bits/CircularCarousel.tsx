@@ -45,7 +45,7 @@ export function CircularCarousel({ items, onItemClick }: Props) {
     <div
       ref={rootRef}
       className="relative h-[420px] w-full select-none overflow-hidden outline-none sm:h-[480px] md:h-[560px]"
-      style={{ perspective: '1600px' }}
+      style={{ perspective: '1600px', touchAction: 'pan-y' }}
       onPointerDown={(e) => {
         if (e.button !== 0) return
         dragging.current = true
@@ -71,7 +71,12 @@ export function CircularCarousel({ items, onItemClick }: Props) {
       onPointerUp={() => {
         dragging.current = false
       }}
-      onPointerEnter={() => setHover(true)}
+      onPointerCancel={() => {
+        dragging.current = false
+      }}
+      onPointerEnter={(e) => {
+        if (e.pointerType === 'mouse') setHover(true)
+      }}
       onPointerLeave={() => {
         setHover(false)
         dragging.current = false

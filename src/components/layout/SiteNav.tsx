@@ -20,10 +20,11 @@ export function SiteNav() {
       }
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <NavLink to="/" className="text-[13px] font-semibold uppercase tracking-[0.22em] text-white">
-          {profile.name}
+        <NavLink to="/" className="whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.22em] text-white">
+          <span className="font-series text-2xl tracking-[0.06em] sm:hidden">VB</span>
+          <span className="hidden sm:inline">{profile.name}</span>
         </NavLink>
-        <nav className="flex items-center gap-6 text-[13px] uppercase tracking-[0.16em] text-white/70">
+        <nav className="flex items-center gap-4 whitespace-nowrap text-[11px] uppercase tracking-[0.12em] text-white/70 sm:gap-6 sm:text-[13px] sm:tracking-[0.16em]">
           {links.map((l) => (
             <NavLink
               key={l.to}

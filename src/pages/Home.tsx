@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
@@ -27,7 +28,10 @@ export function Home() {
 
   return (
     <div>
-      <AnimatePresence>{intro && <OpeningSequence key="intro" onDone={closeIntro} />}</AnimatePresence>
+      {createPortal(
+        <AnimatePresence>{intro && <OpeningSequence key="intro" onDone={closeIntro} />}</AnimatePresence>,
+        document.body,
+      )}
       <SeriesHero onPlay={() => setIntro(true)} />
 
       <section id="grupo-penna" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20">
