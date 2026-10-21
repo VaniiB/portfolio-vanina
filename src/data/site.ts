@@ -273,8 +273,22 @@ export const education = [
 /** Link de YouTube (video o lista) o de Spotify (tema, lista o álbum). */
 export const nowPlaying = {
   url: 'https://open.spotify.com/playlist/37i9dQZF1EQpj7X7UK8OOF',
-  /** Temas que suenan antes de la playlist. */
-  firstTracks: [] as string[],
+  /** Temas de Rock Mix en orden, para que suene igual en todos los dispositivos. */
+  firstTracks: [
+    '0d28khcov6AiegSCpG5TuT', '2zYzyRzz6pRmhPzyfMEC8s', '70LcF31zb1H0PyJoS1Sx1r', '7snQQk1zcKl8gZ92AnueZW',
+    '3DwQ7AH3xGD9h65ezslm6q', '5UWwZ5lm5PKu6eKsHAGxOk', '1EDPVGbyPKJPeGqATwXZvN', '11LmqTE2naFULdEP94AUBa',
+    '5Ih9gbqyxCzTJ43nuSuKnC', '3dPQuX8Gs42Y7b454ybpMR', '0gmbgwZ8iqyMPmXefof8Yf', '1158ckiB5S4cpsdYHDB9IF',
+    '63T7DJ1AFDD6Bn8VzG6JE8', '0COqiPhxzoWICwFCS4eZcp', '2DlHlPMa4M17kufBvI2lEN', '4gMgiXfqyzZLMhsksGmbQV',
+    '78lgmZwycJ3nzsdgmPPGNx', '2ELSVi4kwWOXgxiIC592tJ', '0M955bMOoilikPXwKLYpoi', '0knbMPVHpFbsx38pLoYSRs',
+    '1Y373MqadDRtclJNdnUXVc', '0u6JFVn0KHHlidZxNL9gVE', '6GtX0jaNL8IjVQfrDBx81z', '2m1hi0nfMR9vdGC8UcrnwU',
+    '5W8YXBz9MTIDyrpYaCg2Ky', '42T2QQv3xgBlpQxaSP7lnK', '5EWPGh7jbTNO2wakv8LjUI', '08mG3Y1vljYA6bvDt4Wqkj',
+    '0M3adYbGtyRHACP86dey1H', '0G21yYKMZoHa30cYVi1iA8', '6QAsrXPnMSXIbV0yEJHlEX', '7x8dCjCr0x6x2lXKujYD34',
+    '2nLtzopw4rPReszdYBJU6h', '2SHTKB8YYlawTGIuJ2b2ok', '1gyee1JuFFiP476LQpRMYU', '4JfuiOWlWCkjP6OKurHjSn',
+    '6QewNVIDKdSl8Y3ycuHIei', '51c94ac31swyDQj9B3Lzs3', '6nTiIhLmQ3FWhvrGafw2zj', '5O9Dz0h08LuBi0aVvDcylh',
+    '0snQkGI5qnAmohLE7jTsTn', '4EchqUKQ3qAQuRNKmeIpnf', '5CQ30WqJwcep0pYcV4AMNc', '1KPuohcXPmJYQfdyg9zKmR',
+    '0faXHILILebCGnJBPU6KJJ', '4VqPOruhp5EdPBeR92t6lQ', '3IOQZRcEkplCXg6LofKqE9', '0bRNszTbTFLNlunAeh7eom',
+    '4jTqsgDaffdNH0BMBwhjFv', '0vFOzaXqZHahrZp6enQwQb',
+  ].map((id) => `https://open.spotify.com/track/${id}`),
 }
 
 export const heroQuestions = {
