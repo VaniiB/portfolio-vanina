@@ -272,12 +272,9 @@ export const education = [
 
 /** Link de YouTube (video o lista) o de Spotify (tema, lista o álbum). */
 export const nowPlaying = {
-  url: 'https://open.spotify.com/playlist/2F1YxcJd9GLxe31E3Y6p4f',
-  /** Temas que suenan antes de la playlist (Sui Generis: Canción para mi muerte, Necesito). */
-  firstTracks: [
-    'https://open.spotify.com/track/0LWO6hUTJz6KBrSA2iJOpH',
-    'https://open.spotify.com/track/7H62s62eUQqYXTA3WsrTK7',
-  ],
+  url: 'https://open.spotify.com/playlist/37i9dQZF1EQpj7X7UK8OOF',
+  /** Temas que suenan antes de la playlist. */
+  firstTracks: [] as string[],
 }
 
 export const heroQuestions = {
