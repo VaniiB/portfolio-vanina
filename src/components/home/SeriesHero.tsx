@@ -16,14 +16,14 @@ const item = {
 }
 
 const speech: Record<Exclude<Zone, 'idle'>, string[]> = {
-  left: ['¿Hay alguien a la izquierda?'],
-  right: ['¿Hay alguien a la derecha?'],
-  center: ['¡Hola!', '¡Holaaa!'],
+  left: ['Â¿Hay alguien a la izquierda?'],
+  right: ['Â¿Hay alguien a la derecha?'],
+  center: ['Â¡Hola!', 'Â¡Holaaa!'],
 }
 
 type Talk = { kind: 'what' | 'mad' | 'chat'; text: string }
 
-const chat = ['¿Qué hacés?', '¿Me ves?', 'Ey', '¿Todo bien?']
+const chat = ['Â¿QuÃ© hacÃ©s?', 'Â¿Me ves?', 'Ey', 'Â¿Todo bien?']
 
 function talkForLook(lx: number, ly: number): Talk | null {
   const c = Math.round(Math.min(1, Math.max(0, lx)) * 2)
@@ -35,13 +35,13 @@ function talkForLook(lx: number, ly: number): Talk | null {
 type QuestionId = 'music' | 'about' | 'career' | 'projects' | 'mate' | 'ai' | 'contact'
 
 const chips: { id: QuestionId; text: string; pos: string }[] = [
-  { id: 'music', text: '¿Qué estás escuchando?', pos: 'right-[2%] top-[12%]' },
+  { id: 'music', text: 'Â¿QuÃ© estÃ¡s escuchando?', pos: 'right-[2%] top-[12%]' },
   { id: 'about', text: 'Contame de vos', pos: 'right-[18%] top-[28%]' },
-  { id: 'career', text: '¿Me contás de tu trayectoria?', pos: 'right-[2%] top-[44%]' },
-  { id: 'projects', text: '¿Cuáles son tus proyectos?', pos: 'left-[2%] bottom-[34%]' },
-  { id: 'ai', text: '¿Usás IA?', pos: 'left-[8%] bottom-[22%]' },
-  { id: 'mate', text: '¿Me convidás un mate?', pos: 'right-[6%] bottom-[30%]' },
-  { id: 'contact', text: '¿Cómo te contacto?', pos: 'left-[4%] bottom-[10%]' },
+  { id: 'career', text: 'Â¿Me contÃ¡s de tu trayectoria?', pos: 'right-[2%] top-[44%]' },
+  { id: 'projects', text: 'Â¿CuÃ¡les son tus proyectos?', pos: 'left-[2%] bottom-[34%]' },
+  { id: 'ai', text: 'Â¿UsÃ¡s IA?', pos: 'left-[8%] bottom-[22%]' },
+  { id: 'mate', text: 'Â¿Me convidÃ¡s un mate?', pos: 'right-[6%] bottom-[30%]' },
+  { id: 'contact', text: 'Â¿CÃ³mo te contacto?', pos: 'left-[4%] bottom-[10%]' },
 ]
 
 function axisFrom(n: number, face: number) {
@@ -87,15 +87,15 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
   const whatUntil = useRef(0)
   const madUntil = useRef(0)
   const whatGrid = [
-    ['/character/what-left.png?v=1', '/character/react-what.png?v=2', '/character/what-right.png?v=1'],
-    ['/character/what-down-left.png?v=1', '/character/what-down.png?v=1', '/character/what-down-right.png?v=1'],
+    ['/character/what-left.png?v=2', '/character/react-what.png?v=3', '/character/what-right.png?v=1'],
+    ['/character/what-down-left.png?v=2', '/character/what-down.png?v=1', '/character/what-down-right.png?v=1'],
   ]
   const whatFor = (lx: number, ly: number) =>
     whatGrid[ly < 0.6 ? 0 : 1][Math.round(Math.min(1, Math.max(0, lx)) * 2)]
   const madFace = '/character/react-mad.png?v=2'
   const grabSrc = '/character/work-mate-6.png?v=5'
   const drinkSrc = '/character/work-mate-2.png?v=5'
-  const pointSrc = '/character/point-down.png?v=1'
+  const pointSrc = '/character/point-down.png?v=2'
   const offerSrc = '/character/offer-mate.png?v=1'
   const sadSrc = '/character/react-sad.png?v=1'
   const answerLock = useRef(false)
@@ -339,13 +339,13 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
       onClick={closeAnswer}
       className="absolute right-2.5 top-2 text-base leading-none text-[#07070a]/50 hover:text-[#07070a]"
     >
-      ×
+      Ã—
     </button>
     <motion.p key={answer.text} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pr-3">
       {answer.text}
     </motion.p>
     {answer.id === 'music' && !hasSong && (
-      <p className="mt-2 text-xs text-[#07070a]/55">Pronto va a sonar acá.</p>
+      <p className="mt-2 text-xs text-[#07070a]/55">Pronto va a sonar acÃ¡.</p>
     )}
     {answer.id === 'music' && hasSong && music === 'off' && (
       <button
@@ -356,7 +356,7 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
         }}
         className="saludar-pulse mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-[#ff3d5a] px-3 py-2 text-xs font-medium text-white transition hover:brightness-110"
       >
-        ▶ Reproducir
+        â–¶ Reproducir
       </button>
     )}
     {answer.id === 'music' && hasSong && music === 'playing' && (
@@ -364,7 +364,7 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
         <p className="mt-2 text-xs text-[#07070a]/70">{heroQuestions.musicKeep}</p>
         <div className="mt-3 flex gap-2">
           {[
-            { label: 'Sí, dale', keep: true },
+            { label: 'SÃ­, dale', keep: true },
             { label: 'No, gracias', keep: false },
           ].map((o) => (
             <button
@@ -389,13 +389,13 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
         aria-label="Ir a mis proyectos"
         className="saludar-pulse mt-3 flex size-10 items-center justify-center rounded-full bg-[#ff3d5a] text-lg text-white"
       >
-        ↓
+        â†“
       </a>
     )}
     {answer.id === 'mate' && answer.text === heroQuestions.mate[1] && (
       <div className="mt-3 flex gap-2">
         {[
-          { label: 'Sí', liked: true },
+          { label: 'SÃ­', liked: true },
           { label: 'No', liked: false },
         ].map((o) => (
           <button
@@ -484,9 +484,9 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
           }
           const next: Talk | null =
             now < whatUntil.current
-              ? { kind: 'what', text: '¿Qué es eso?' }
+              ? { kind: 'what', text: 'Â¿QuÃ© es eso?' }
               : now < madUntil.current
-                ? { kind: 'mad', text: '¡Qué molesto! Estoy trabajando.' }
+                ? { kind: 'mad', text: 'Â¡QuÃ© molesto! Estoy trabajando.' }
                 : talkForLook(look.x, look.y)
           faceHold.current = next?.kind === 'what' ? whatFor(look.x, look.y) : next?.kind === 'mad' ? madFace : null
           setTalk((prev) => (prev?.kind === next?.kind && prev?.text === next?.text ? prev : next))
@@ -641,10 +641,10 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
           MI PORTAFOLIO
         </motion.p>
         <motion.p variants={item} className="mt-3 text-[13px] tracking-[0.16em] text-[#a7a6ad]">
-          DESARROLLADORA FULL STACK CON ENFOQUE EN DISEÑO UX/UI
+          DESARROLLADORA FULL STACK CON ENFOQUE EN DISEÃ‘O UX/UI
         </motion.p>
         <motion.p variants={item} className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#f4f1ec]/80">
-          Diseño la experiencia y la construyo de punta a punta: Figma, Front-End en React y TypeScript, y Back-End con Node.js. Paneles operativos, dashboards, permisos e IA aplicada a flujos reales.
+          DiseÃ±o la experiencia y la construyo de punta a punta: Figma, Front-End en React y TypeScript, y Back-End con Node.js. Paneles operativos, dashboards, permisos e IA aplicada a flujos reales.
         </motion.p>
         <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
           <Magnetic>
@@ -653,7 +653,7 @@ export function SeriesHero({ onPlay }: { onPlay: () => void }) {
               onClick={onPlay}
               className="flex min-h-12 items-center gap-2 rounded-md bg-[#f4f1ec] px-7 py-3 text-[15px] font-semibold text-black"
             >
-              ▶ Play intro
+              â–¶ Play intro
             </button>
           </Magnetic>
           <a
